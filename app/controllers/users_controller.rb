@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %w(show edit update destroy)
+  before_action :set_user, only: %i(show edit update destroy correct_user)
+  skip_before_action :login_required, only: %i(new create)
+  before_action :correct_user, only: %i(show edit update destroy)
 
   def new
     @user = User.new
@@ -32,7 +34,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to new_user_path
+    redirect_to new_session_path
   end
 
   private
@@ -42,6 +44,10 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def correct_user
+      redirect_to current_user unless current_user?(@user)
     end
 end    
 
