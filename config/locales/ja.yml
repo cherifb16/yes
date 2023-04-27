@@ -40,7 +40,7 @@ ja:
     show:
       title: タスク詳細ページ
     create:
-      created: タスクを登録しました
+      created: タスク一覧ページ
     update:
       updated: タスクを更新しました
     destroy:
